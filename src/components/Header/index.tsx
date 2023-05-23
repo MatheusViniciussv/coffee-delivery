@@ -22,7 +22,7 @@ export function HeaderComponent() {
         </Location>
 
         <Link to='#'>
-          <ShoppingCart size={24} />
+          <ShoppingCart size={24} weight='fill' />
         </Link>
       </ActionsContent>
     </Container>

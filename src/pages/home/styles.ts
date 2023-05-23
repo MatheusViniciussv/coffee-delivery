@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const Container = styled.div`
+export const HomeContainer = styled.div`
   display: flex;
 
   align-items: center;
@@ -8,6 +8,17 @@ export const Container = styled.div`
 
   padding: 8rem 0;
   gap: 2rem;
+
+  background: repeating-radial-gradient(
+    ${(props) => props.theme["yellow-light"]},
+    ${(props) => props.theme["purple-light"]},
+    ${(props) => props.theme["purple-light"]},
+    ${(props) => props.theme["background"]},
+    ${(props) => props.theme["background"]},
+    ${(props) => props.theme["background"]}
+  ) repeat;
+
+  background-color: blur(23rem);
 `;
 
 export const Content = styled.div`
@@ -18,6 +29,7 @@ export const Content = styled.div`
   h3 {
     font-size: 48px;
     font-family: "Baloo 2";
+    line-height: 3.5rem;
     color: ${(props) => props.theme["base-title"]};
   }
 
