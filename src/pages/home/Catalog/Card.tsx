@@ -1,11 +1,11 @@
-import { ContentCard } from "./styles";
+import { CardBuy, CardTitle, CardType, ContentCard } from "./styles";
 
 interface CardData {
   data: {
-    title: string
+    name: string
     description: string
     value: number
-    type: Array<string>
+    type: Array<{ id: number, name: string }>
     image: string
     id: number
   }
@@ -14,12 +14,28 @@ interface CardData {
 export function Card({ data }: CardData) {
   return (
     <ContentCard>
-      <img src={data.image} alt={data.title} />
-      {data.title}
+      <img src={data.image} alt={data.name} />
 
-      <div>
-        {data.description}
-      </div>
+      {data?.type.map((type) => (
+        <CardType key={type.id}>
+          {type.name}
+        </CardType>
+      ))}
+
+      <CardTitle>
+        <strong>
+          {data.name}
+        </strong>
+
+        <span>
+          {data.description}
+        </span>
+      </CardTitle>
+
+      <CardBuy>
+
+      </CardBuy>
+
     </ContentCard>
   )
 }

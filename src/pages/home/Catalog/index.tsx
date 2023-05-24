@@ -10,7 +10,7 @@ export function Catalog() {
 
       <CoffeContent>
         {api.map((coffee) => (
-          <Card data={coffee} />
+          <Card key={coffee.id} data={coffee} />
         ))}
       </CoffeContent>
     </Container>

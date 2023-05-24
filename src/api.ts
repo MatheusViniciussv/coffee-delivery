@@ -1,8 +1,8 @@
 interface Data {
-  title: string
+  name: string
   description: string
   value: number
-  type: Array<string>
+  type: Array<{ id: number, name: string }>
   image: string
   id: number
 }
@@ -15,34 +15,37 @@ import ColdExpress from "./assets/coffee-cafe-gelado.svg";
 export const api: Data[] = [
   {
     id: 1,
-    title: "Expresso Tradicional",
+    name: "Expresso Tradicional",
     description: "O tradicional café feito com água quente e grãos moídos",
     value: 9.9,
-    type: ["TRADICIONAL"],
+    type: [{ id: 1, name: "TRADICIONAL" }],
     image: Express,
   },
   {
     id: 2,
-    title: "Expresso Americano",
+    name: "Expresso Americano",
     description: "Expresso diluído, menos intenso que o tradicional",
     value: 9.9,
-    type: ["TRADICIONAL"],
+    type: [{ id: 1, name: "TRADICIONAL" }],
     image: AmericanExpress,
   },
   {
     id: 3,
-    title: "Expresso Cremoso",
+    name: "Expresso Cremoso",
     description: "Café expresso tradicional com espuma cremosa",
     value: 9.9,
-    type: ["TRADICIONAL"],
+    type: [{ id: 1, name: "TRADICIONAL" }],
     image: CreamyExpress,
   },
   {
     id: 4,
-    title: "Expresso Gelado",
+    name: "Expresso Gelado",
     description: "Bebida preparada com café expresso e cubos de gelo",
     value: 9.9,
-    type: ['TRADICIONAL', 'GELADO'],
+    type: [
+      { id: 1, name: "TRADICIONAL" },
+      { id: 2, name: "GELADO" },
+    ],
     image: ColdExpress,
   },
 ];
