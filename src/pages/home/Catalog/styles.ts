@@ -18,9 +18,26 @@ export const CoffeContent = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   justify-content: center;
+  align-items: center;
 
   gap: 2rem;
   row-gap: 2.5rem;
+
+  @media (min-width: 1360px) and (max-width: 1680px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+
+  @media (min-width: 1140px) and (max-width: 1360px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  @media (min-width: 800px) and (max-width: 1140px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (max-width: 800px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 export const ContentCard = styled.div`
