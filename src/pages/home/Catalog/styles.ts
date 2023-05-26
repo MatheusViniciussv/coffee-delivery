@@ -13,19 +13,20 @@ export const Container = styled.div`
 `;
 
 export const CoffeContent = styled.div`
-  padding: 5rem 0;
+  padding: 3rem 0;
 
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   justify-content: center;
 
   gap: 2rem;
+  row-gap: 2.5rem;
 `;
 
 export const ContentCard = styled.div`
   width: 16rem;
 
-  padding: 0 2rem 2rem 2rem;
+  padding: 0 1.5rem 1.5rem 1.5rem;
 
   display: flex;
   align-items: center;
@@ -33,24 +34,34 @@ export const ContentCard = styled.div`
   flex-direction: column;
   gap: 0.875rem;
 
-  background: ${(props) => props.theme['base-card']};
+  background: ${(props) => props.theme["base-card"]};
 
   border-radius: 8px 40px 8px 40px;
 
   img {
-    margin-top: -1rem
+    margin-top: -1.6rem;
   }
 `;
 
-export const CardType = styled.div`
-  padding: 0.5rem 1rem;
-  font-weight: bold;
-  font-size: 10px;
+export const CardTypeContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
+  gap: 0.5rem;
+`;
+
+export const CardType = styled.div`
   background: ${(props) => props.theme["yellow-light"]};
   color: ${(props) => props.theme["yellow"]};
   border-radius: 20px;
+
+  padding: 0.5rem 0.625rem;
+  font-weight: bold;
+  font-size: 10px;
 `;
+
+
 
 export const CardTitle = styled.div`
   display: flex;
@@ -74,5 +85,49 @@ export const CardTitle = styled.div`
 `;
 
 export const CardBuy = styled.div`
+  margin-top: 1rem;
+  width: 100%;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const Price = styled.div`
+  display: flex;
+  align-items: baseline;
+  gap: 0.2rem;
+
+  span {
+    font-size: 14px;
+    color: ${(props) => props.theme["base-text"]};
+  }
+
+  strong {
+    font-size: 24px;
+    font-family: "Baloo 2";
+    color: ${(props) => props.theme["base-text"]};
+  }
+`;
+
+export const Actions = styled.div`
+  display: flex;
+  gap: 0.5rem;
+`;
+
+export const Counter = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 6px;
+
+  background: ${(props) => props.theme["base-button"]};
+`;
+
+export const IconButton = styled.div`
+  display: flex;
+  padding: 0.5rem;
+  border-radius: 6px;
+
+  background: ${(props) => props.theme["purple-dark"]};
 `;

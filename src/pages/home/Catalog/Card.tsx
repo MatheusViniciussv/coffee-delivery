@@ -1,4 +1,6 @@
-import { CardBuy, CardTitle, CardType, ContentCard } from "./styles";
+import { Minus, Plus, ShoppingCart, ShoppingCartSimple } from "@phosphor-icons/react";
+import { Actions, CardBuy, CardTitle, CardType, CardTypeContainer, ContentCard, Counter, IconButton, Price } from "./styles";
+import { useTheme } from "styled-components";
 
 interface CardData {
   data: {
@@ -12,15 +14,19 @@ interface CardData {
 }
 
 export function Card({ data }: CardData) {
+  const theme = useTheme()
+
   return (
     <ContentCard>
       <img src={data.image} alt={data.name} />
 
-      {data?.type.map((type) => (
-        <CardType key={type.id}>
-          {type.name}
-        </CardType>
-      ))}
+      <CardTypeContainer>
+        {data?.type.map((type) => (
+          <CardType key={type.id}>
+            {type.name}
+          </CardType>
+        ))}
+      </CardTypeContainer>
 
       <CardTitle>
         <strong>
@@ -33,7 +39,22 @@ export function Card({ data }: CardData) {
       </CardTitle>
 
       <CardBuy>
+        <Price>
+          <span>R$</span>
+          <strong>{Intl.NumberFormat('pt-BR', { minimumFractionDigits: 2 }).format(data.value)}</strong>
+        </Price>
 
+        <Actions>
+          <Counter>
+            <Minus color={theme?.purple} />
+            1
+            <Plus color={theme?.purple} />
+          </Counter>
+
+          <IconButton>
+            <ShoppingCartSimple size={22} weight='fill' color={theme?.white} />
+          </IconButton>
+        </Actions>
       </CardBuy>
 
     </ContentCard>
