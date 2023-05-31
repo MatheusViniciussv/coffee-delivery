@@ -1,5 +1,5 @@
-import { Minus, Plus, ShoppingCart, ShoppingCartSimple } from "@phosphor-icons/react";
-import { Actions, CardBuy, CardTitle, CardType, CardTypeContainer, ContentCard, Counter, IconButton, Price } from "./styles";
+import { Minus, Plus, ShoppingCartSimple } from "@phosphor-icons/react";
+import { Actions, CardBuy, CardTitle, CardType, CardTypeContainer, ContentCard, Counter, CounterButton, IconButton, Price } from "./styles";
 import { useTheme } from "styled-components";
 
 interface CardData {
@@ -46,9 +46,13 @@ export function Card({ data }: CardData) {
 
         <Actions>
           <Counter>
-            <Minus color={theme?.purple} />
+            <CounterButton radiusDiraction="left">
+              <Minus color={theme?.purple} />
+            </CounterButton>
             1
-            <Plus color={theme?.purple} />
+            <CounterButton radiusDiraction="right">
+              <Plus color={theme?.purple} />
+            </CounterButton>
           </Counter>
 
           <IconButton>
