@@ -21,7 +21,7 @@ export function HeaderComponent() {
           <span>Salvador, BA</span>
         </Location>
 
-        <Link to='#'>
+        <Link to='/checkout'>
           <ShoppingCart size={24} weight='fill' />
         </Link>
       </ActionsContent>
