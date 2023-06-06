@@ -1,10 +1,24 @@
 import { MapPinLine, CurrencyDollar, CreditCard, Bank, Money } from '@phosphor-icons/react'
-import { CoffeCartContent, CompletedOrder, Content, SelectedCoffee, Location, Payment, LocationHeader, PaymentHeader, Conditions, PaymentButton, FormInput } from "./styles";
+import {
+  CompletedOrder,
+  Content,
+  CartCoffee,
+  Location, Payment,
+  LocationHeader,
+  PaymentHeader,
+  Conditions,
+  PaymentButton,
+  FormInput
+} from "./styles";
 import { useTheme } from 'styled-components';
+import { useState } from 'react';
+import { Cart } from './Cart';
 
 export function Checkout() {
 
   const theme = useTheme()
+
+  const [selected, setSelected] = useState('')
 
   return (
     <Content>
@@ -20,13 +34,22 @@ export function Checkout() {
           </LocationHeader>
 
           <form>
-            <FormInput name="zipcode" placeholder='CEP' />
-            <FormInput name="adress" placeholder='Rua' />
-            <FormInput name="number" placeholder='Número' />
-            <FormInput name="complement" placeholder='Complemento' />
-            <FormInput name="neighborhood" placeholder='Bairro' />
-            <FormInput name="city" placeholder='Cidade' />
-            <FormInput name="state" placeholder='UF' />
+            <div className='header'>
+              <FormInput name="zipcode" placeholder='CEP'  max={8} />
+            </div>
+            <div className='address-top'>
+              <FormInput name="adress" placeholder='Rua' />
+            </div>
+            <div className='address-mid'>
+              <FormInput name="number" placeholder='Número' />
+              <FormInput name="complement" placeholder='Complemento' />
+            </div>
+            <div className='address-bottom'>
+              <FormInput name="neighborhood" placeholder='Bairro' />
+              <FormInput name="city" placeholder='Cidade' />
+              <FormInput name="state" placeholder='UF' />
+            </div>
+
           </form>
 
         </Location>
@@ -41,17 +64,17 @@ export function Checkout() {
           </PaymentHeader>
 
           <Conditions>
-            <PaymentButton>
+            <PaymentButton onClick={() => setSelected('credit')} type='button' isSelected={selected === 'credit' ? true : false}>
               <CreditCard size={22} color={theme?.purple} />
               <span>CARTÃO DE DÉBITO</span>
             </PaymentButton>
 
-            <PaymentButton>
+            <PaymentButton onClick={() => setSelected('debit')} type='button' isSelected={selected === 'debit' ? true : false}>
               <Bank size={22} color={theme?.purple} />
               <span>CARTÃO DE DÉBITO</span>
             </PaymentButton>
 
-            <PaymentButton>
+            <PaymentButton onClick={() => setSelected('money')} type='button' isSelected={selected === 'money' ? true : false}>
               <Money size={22} color={theme?.purple} />
               <span>DINHEIRO</span>
             </PaymentButton>
@@ -59,13 +82,12 @@ export function Checkout() {
 
         </Payment>
       </CompletedOrder>
-      <SelectedCoffee>
-        <h1>cafés selecionados</h1>
-        <CoffeCartContent>
-          <h1>coffeeeee</h1>
 
-        </CoffeCartContent>
-      </SelectedCoffee>
+      <CartCoffee>
+        <h3>cafés selecionados</h3>
+
+        <Cart />
+      </CartCoffee>
     </Content>
   )
 }

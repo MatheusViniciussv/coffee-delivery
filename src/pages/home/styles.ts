@@ -6,17 +6,18 @@ export const HomeContainer = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  padding: 8rem 0;
+  padding: 8rem 0 0;
   gap: 2rem;
 
   background: repeating-radial-gradient(
-    ${(props) => props.theme["yellow-light"]},
-    ${(props) => props.theme["purple-light"]},
-    ${(props) => props.theme["purple-light"]},
-    ${(props) => props.theme["background"]},
-    ${(props) => props.theme["background"]},
-    ${(props) => props.theme["background"]}
-  ) repeat;
+      ${(props) => props.theme["yellow-light"]},
+      ${(props) => props.theme["purple-light"]},
+      ${(props) => props.theme["purple-light"]},
+      ${(props) => props.theme["background"]},
+      ${(props) => props.theme["background"]},
+      ${(props) => props.theme["background"]}
+    )
+    repeat;
 
   background-color: blur(23rem);
 `;

@@ -1,13 +1,12 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const Content = styled.div`
   display: grid;
 
   grid-template-columns: 70% 1fr;
 
-  padding: 8rem 0;
+  padding: 4rem 0 0;
   gap: 2rem;
-
 `;
 
 export const CompletedOrder = styled.div`
@@ -23,20 +22,64 @@ export const CompletedOrder = styled.div`
 
   form {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-row: 2fr 1fr 3fr;
+    grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
+
+    grid-template-areas:
+      "tp tp tp tp"
+      "adt adt adt adt"
+      "adm adm adm adm"
+      "adb adb adb adb";
+
+    .header {
+      display: grid;
+      width: 25%;
+      grid-area: tp;
+    }
+
+    .address-top {
+      width: 100%;
+      grid-area: adt;
+    }
+
+    .address-mid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 1rem;
+      width: 100%;
+      grid-area: adm;
+      background: ${(props) => props.theme["base-card"]};
+    }
+
+    .address-bottom {
+      display: grid;
+      grid-template-columns: 2fr 2.9fr 1fr;
+      gap: 1rem;
+      width: 100%;
+      grid-area: adb;
+      background: ${(props) => props.theme["base-card"]};
+    }
   }
 `;
 
 export const FormInput = styled.input`
   padding: 1rem;
 
-  border: 1px solid ${(props) => props.theme["base-button"]};
-  background: ${(props) => props.theme["base-input"]};
-  color: ${(props) => props.theme["base-label"]};
+  width: 100%;
 
   border-radius: 8px;
+
+  border: 1px solid ${(props) => props.theme["base-button"]};
+  background: ${(props) => props.theme["base-input"]};
+  color: ${(props) => props.theme["base-text"]};
+
+  &:focus {
+    border: 1px solid ${(props) => props.theme["yellow-dark"]};
+  }
+
+  &::placeholder {
+    color: ${(props) => props.theme["base-label"]};
+  }
 `;
 
 export const Location = styled.div`
@@ -99,7 +142,11 @@ export const Conditions = styled.div`
   gap: 0.75rem;
 `;
 
-export const PaymentButton = styled.button`
+interface PaymentButtonProps {
+  isSelected: boolean
+}
+
+export const PaymentButton = styled.button<PaymentButtonProps>`
   display: flex;
   align-items: center;
 
@@ -110,21 +157,33 @@ export const PaymentButton = styled.button`
 
   border-radius: 8px;
 
-  border: 0;
+  border: 1px solid transparent;
   background: ${(props) => props.theme["base-button"]};
 
   span {
     color: ${(props) => props.theme["base-text"]};
   }
+
+  &:hover {
+    background: ${(props) => props.theme["base-hover"]};
+  }
+
+  ${(props) =>
+    props.isSelected &&
+    css`
+      background: ${(props) => props.theme["purple-light"]};
+      border: 1px solid ${(props) => props.theme["purple"]};
+    `}
 `;
 
-export const SelectedCoffee = styled.div`
+export const CartCoffee = styled.div`
   display: flex;
   flex-direction: column;
 
-  background: ${(props) => props.theme["base-label"]};
-`;
+  gap: 1.375rem;
 
-export const CoffeCartContent = styled.div`
-  display: flex;
+  h3 {
+    font-size: 18px;
+    font-family: "Baloo 2";
+  }
 `;

@@ -12,7 +12,9 @@ export function HeaderComponent() {
 
   return (
     <Container>
-      <img src={logoHeader} />
+      <Link to='/'>
+        <img src={logoHeader} />
+      </Link>
 
       <ActionsContent>
         <Location>
