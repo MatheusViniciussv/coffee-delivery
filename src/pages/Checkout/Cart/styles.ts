@@ -8,6 +8,10 @@ export const Container = styled.div`
 
   padding: 2.5rem;
   background: ${(props) => props.theme["base-card"]};
+
+  a {
+    text-decoration: none;
+  }
 `;
 
 export const Content = styled.div`

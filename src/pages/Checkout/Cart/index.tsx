@@ -6,6 +6,7 @@ import Latte from '../../../assets/coffee-latte.svg'
 import { useTheme } from "styled-components";
 import { Trash } from "@phosphor-icons/react";
 import { Counter } from "../../../components/Counter";
+import { Link } from "react-router-dom";
 
 export function Cart() {
   const theme = useTheme()
@@ -72,7 +73,9 @@ export function Cart() {
         </div>
       </CartValue>
 
-      <Purchase type='submit'>CONFIRMAR PEDIDO</Purchase>
+      <Link to='/success'>
+        <Purchase type='submit'>CONFIRMAR PEDIDO</Purchase>
+      </Link>
     </Container>
   )
 }

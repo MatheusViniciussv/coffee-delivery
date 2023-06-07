@@ -4,6 +4,8 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
 
+  padding: 6.5rem 0 0;
+
   h3 {
     font-size: 2rem;
     font-family: "Baloo 2";
