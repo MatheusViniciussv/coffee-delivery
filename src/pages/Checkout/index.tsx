@@ -35,7 +35,7 @@ export function Checkout() {
 
           <form>
             <div className='header'>
-              <FormInput name="zipcode" placeholder='CEP'  max={8} />
+              <FormInput name="zipcode" placeholder='CEP' max={8} />
             </div>
             <div className='address-top'>
               <FormInput name="adress" placeholder='Rua' />
@@ -64,17 +64,17 @@ export function Checkout() {
           </PaymentHeader>
 
           <Conditions>
-            <PaymentButton onClick={() => setSelected('credit')} type='button' isSelected={selected === 'credit' ? true : false}>
+            <PaymentButton onClick={() => selected !== 'credit' ? setSelected('credit') : setSelected('')} type='button' isSelected={selected === 'credit' ? true : false}>
               <CreditCard size={22} color={theme?.purple} />
               <span>CARTÃO DE DÉBITO</span>
             </PaymentButton>
 
-            <PaymentButton onClick={() => setSelected('debit')} type='button' isSelected={selected === 'debit' ? true : false}>
+            <PaymentButton onClick={() => selected !== 'debit' ? setSelected('debit') : setSelected('')} type='button' isSelected={selected === 'debit' ? true : false}>
               <Bank size={22} color={theme?.purple} />
               <span>CARTÃO DE DÉBITO</span>
             </PaymentButton>
 
-            <PaymentButton onClick={() => setSelected('money')} type='button' isSelected={selected === 'money' ? true : false}>
+            <PaymentButton onClick={() => selected !== 'money' ? setSelected('money') : setSelected('')} type='button' isSelected={selected === 'money' ? true : false}>
               <Money size={22} color={theme?.purple} />
               <span>DINHEIRO</span>
             </PaymentButton>
@@ -88,6 +88,6 @@ export function Checkout() {
 
         <Cart />
       </CartCoffee>
-    </Content>
+    </Content >
   )
 }
