@@ -3,18 +3,18 @@ import { Actions, CardBuy, CardTitle, CardType, CardTypeContainer, ContentCard, 
 import { useTheme } from "styled-components";
 import { Counter } from "../../../components/Counter";
 
-interface CardData {
+interface Catalog {
   data: {
     name: string
     description: string
     value: number
-    type: Array<{ id: number, name: string }>
+    type: Array<{ id: string, name: string }>
     image: string
-    id: number
+    id: string
   }
 }
 
-export function Card({ data }: CardData) {
+export function Card({ data }: Catalog) {
   const theme = useTheme()
 
   return (
@@ -46,7 +46,7 @@ export function Card({ data }: CardData) {
         </Price>
 
         <Actions>
-          <Counter />
+          <Counter coffeeId={data.id} />
 
           <IconButton>
             <ShoppingCartSimple size={22} weight='fill' color={theme?.white} />

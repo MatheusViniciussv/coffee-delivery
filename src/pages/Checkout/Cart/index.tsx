@@ -1,63 +1,48 @@
 import { Actions, CartValue, Coffee, Container, Content, Price, Purchase, Remove } from "./styles";
 
-import Express from '../../../assets/coffee-expresso.svg'
-import Latte from '../../../assets/coffee-latte.svg'
-
 import { useTheme } from "styled-components";
 import { Trash } from "@phosphor-icons/react";
 import { Counter } from "../../../components/Counter";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { CartContext } from "../../../context/CartContext";
 
 export function Cart() {
   const theme = useTheme()
 
+  const { cart } = useContext(CartContext)
+
   return (
     <Container>
-      <Content>
-        <Coffee>
-          <img src={Express} />
+      {cart.map((coffee) => {
 
-          <div>
-            <span>Expresso Tradicional</span>
+        console.log(coffee)
 
-            <Actions>
-              <Counter />
+        return (
+          <Content key={coffee.id}>
+            <Coffee>
+              <img src={coffee.image} />
 
-              <Remove>
-                <Trash color={theme?.purple} size={18} />
-                <span>REMOVER</span>
-              </Remove>
-            </Actions>
-          </div>
-        </Coffee>
+              <div>
+                <span>{coffee.name}</span>
 
-        <Price>
-          <strong>R$ 9,90</strong>
-        </Price>
-      </Content>
+                <Actions>
+                  <Counter coffeeId={coffee.id} />
 
-      <Content>
-        <Coffee>
-          <img src={Latte} />
+                  <Remove>
+                    <Trash color={theme?.purple} size={18} />
+                    <span>REMOVER</span>
+                  </Remove>
+                </Actions>
+              </div>
+            </Coffee>
 
-          <div>
-            <span>Latte</span>
-
-            <Actions>
-              <Counter />
-
-              <Remove>
-                <Trash color={theme?.purple} size={18} />
-                <span>REMOVER</span>
-              </Remove>
-            </Actions>
-          </div>
-        </Coffee>
-
-        <Price>
-          <strong>R$ 9,90</strong>
-        </Price>
-      </Content>
+            <Price>
+              <strong>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRA' }).format(coffee.value * coffee.quantity)}</strong>
+            </Price>
+          </Content>
+        )
+      })}
 
       <CartValue>
         <div>

@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 import { defaultTheme } from './styles/theme/defaultTheme.ts'
 import Geocode from 'react-geocode'
+import { CartContextProvider } from './context/CartContext.tsx'
 
 function App() {
   Geocode.setApiKey(import.meta.env.VITE_GOOGLE_API_KEY);
@@ -17,9 +18,11 @@ function App() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <BrowserRouter>
-        <Router />
-      </BrowserRouter>
+      <CartContextProvider>
+        <BrowserRouter>
+          <Router />
+        </BrowserRouter>
+      </CartContextProvider>
 
       <GlobalStyles />
     </ThemeProvider>
