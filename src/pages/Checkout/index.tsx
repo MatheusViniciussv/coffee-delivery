@@ -8,17 +8,21 @@ import {
   PaymentHeader,
   Conditions,
   PaymentButton,
-  FormInput
 } from "./styles";
 import { useTheme } from 'styled-components';
 import { useState } from 'react';
 import { Cart } from './Cart';
+
+import { MaskedInput, createDefaultMaskGenerator } from 'react-hook-mask';
 
 export function Checkout() {
 
   const theme = useTheme()
 
   const [selected, setSelected] = useState('')
+  const maskGenerator = createDefaultMaskGenerator('99999-999');
+
+  const [value, setValue] = useState('');
 
   return (
     <Content>
@@ -35,19 +39,25 @@ export function Checkout() {
 
           <form>
             <div className='header'>
-              <FormInput name="zipcode" placeholder='CEP' max={8} />
+              <MaskedInput
+                name="zipcode"
+                placeholder='CEP'
+                maskGenerator={maskGenerator}
+                value={value}
+                onChange={setValue}
+              />
             </div>
             <div className='address-top'>
-              <FormInput name="adress" placeholder='Rua' />
+              <input name="adress" placeholder='Rua' />
             </div>
             <div className='address-mid'>
-              <FormInput name="number" placeholder='Número' />
-              <FormInput name="complement" placeholder='Complemento' />
+              <input name="number" placeholder='Número' />
+              <input name="complement" placeholder='Complemento' />
             </div>
             <div className='address-bottom'>
-              <FormInput name="neighborhood" placeholder='Bairro' />
-              <FormInput name="city" placeholder='Cidade' />
-              <FormInput name="state" placeholder='UF' />
+              <input name="neighborhood" placeholder='Bairro' />
+              <input name="city" placeholder='Cidade' />
+              <input name="state" placeholder='UF' />
             </div>
 
           </form>

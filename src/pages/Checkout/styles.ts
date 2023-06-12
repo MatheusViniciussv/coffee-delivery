@@ -31,6 +31,26 @@ export const CompletedOrder = styled.div`
       "adm adm adm adm"
       "adb adb adb adb";
 
+    input {
+      padding: 1rem;
+
+      width: 100%;
+
+      border-radius: 8px;
+
+      border: 1px solid ${(props) => props.theme["base-button"]};
+      background: ${(props) => props.theme["base-input"]};
+      color: ${(props) => props.theme["base-text"]};
+
+      &:focus {
+        border: 1px solid ${(props) => props.theme["yellow-dark"]};
+      }
+
+      &::placeholder {
+        color: ${(props) => props.theme["base-label"]};
+      }
+    }
+
     .header {
       display: grid;
       width: 25%;
@@ -59,26 +79,6 @@ export const CompletedOrder = styled.div`
       grid-area: adb;
       background: ${(props) => props.theme["base-card"]};
     }
-  }
-`;
-
-export const FormInput = styled.input`
-  padding: 1rem;
-
-  width: 100%;
-
-  border-radius: 8px;
-
-  border: 1px solid ${(props) => props.theme["base-button"]};
-  background: ${(props) => props.theme["base-input"]};
-  color: ${(props) => props.theme["base-text"]};
-
-  &:focus {
-    border: 1px solid ${(props) => props.theme["yellow-dark"]};
-  }
-
-  &::placeholder {
-    color: ${(props) => props.theme["base-label"]};
   }
 `;
 

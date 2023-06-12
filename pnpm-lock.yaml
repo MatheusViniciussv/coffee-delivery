@@ -4,6 +4,7 @@ specifiers:
   '@phosphor-icons/react': ^2.0.9
   '@types/react': ^18.0.28
   '@types/react-dom': ^18.0.11
+  '@types/react-geocode': ^0.2.1
   '@typescript-eslint/eslint-plugin': ^5.57.1
   '@typescript-eslint/parser': ^5.57.1
   '@vitejs/plugin-react': ^4.0.0
@@ -12,6 +13,8 @@ specifiers:
   eslint-plugin-react-refresh: ^0.3.4
   react: ^18.2.0
   react-dom: ^18.2.0
+  react-geocode: ^0.2.3
+  react-hook-mask: ^1.1.16
   react-router-dom: ^6.11.1
   styled-components: 6.0.0-rc.1
   typescript: ^5.0.2
@@ -19,8 +22,11 @@ specifiers:
 
 dependencies:
   '@phosphor-icons/react': 2.0.9_biqbaboplfbrettd7655fr4n2y
+  '@types/react-geocode': 0.2.1
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
+  react-geocode: 0.2.3
+  react-hook-mask: 1.1.16_biqbaboplfbrettd7655fr4n2y
   react-router-dom: 6.11.2_biqbaboplfbrettd7655fr4n2y
   styled-components: 6.0.0-rc.1_biqbaboplfbrettd7655fr4n2y
 
@@ -1678,6 +1684,10 @@ packages:
       '@types/react': 18.2.6
     dev: true
 
+  /@types/react-geocode/0.2.1:
+    resolution: {integrity: sha512-iZAvDCFNYc3jZqB/MoPkOE/Gc0AzrBkCjpQnVpRKrDB6v8k6i4Cp+fpV7y3MLg13zasovTpuguo25nkVc31fcA==}
+    dev: false
+
   /@types/react/18.2.6:
     resolution: {integrity: sha512-wRZClXn//zxCFW+ye/D2qY65UsYP1Fpex2YXorHc8awoNamkMZSvBxwxdYVInsHOZZd2Ppq8isnSzJL5Mpf8OA==}
     dependencies:
@@ -2723,6 +2733,23 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
+    dev: false
+
+  /react-geocode/0.2.3:
+    resolution: {integrity: sha512-sIpbgmn1IUzAxO4haOZ6jeeFnMD8ya9PC38yiNrmJ9vPWbvAO2D/2yfCBzZjGZVUm4PRzKAc0KghXfaEnug0TQ==}
+    dependencies:
+      regenerator-runtime: 0.13.11
+    dev: false
+
+  /react-hook-mask/1.1.16_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-uw1f8IRC70s6kCg17lPaQed9ZFH30hPJgIFHHhciE/4lRBuqnQJB5P7rk6tjOu6be1ZQS5Y/ACv0oMrET9WoCw==}
+    peerDependencies:
+      react: '>= 17.0.0'
+      react-dom: '>= 17.0.0'
+      react-scripts: ^5.0.1
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /react-refresh/0.14.0:
