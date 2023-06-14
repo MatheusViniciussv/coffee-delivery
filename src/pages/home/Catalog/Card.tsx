@@ -2,6 +2,7 @@ import { ShoppingCartSimple } from "@phosphor-icons/react";
 import { Actions, CardBuy, CardTitle, CardType, CardTypeContainer, ContentCard, IconButton, Price } from "./styles";
 import { useTheme } from "styled-components";
 import { Counter } from "../../../components/Counter";
+import { Link } from "react-router-dom";
 
 interface Catalog {
   data: {
@@ -11,6 +12,7 @@ interface Catalog {
     type: Array<{ id: string, name: string }>
     image: string
     id: string
+    quantity: number
   }
 }
 
@@ -46,11 +48,13 @@ export function Card({ data }: Catalog) {
         </Price>
 
         <Actions>
-          <Counter coffeeId={data.id} />
+          <Counter id={data.id} />
 
-          <IconButton>
-            <ShoppingCartSimple size={22} weight='fill' color={theme?.white} />
-          </IconButton>
+          <Link to='/checkout'>
+            <IconButton>
+              <ShoppingCartSimple size={22} weight='fill' color={theme?.white} />
+            </IconButton>
+          </Link>
         </Actions>
       </CardBuy>
 

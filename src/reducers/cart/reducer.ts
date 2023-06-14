@@ -19,27 +19,25 @@ interface CoffeeState {
 
 export function cartReducer(state: CoffeeState, action: any) {
   switch (action.type) {
+
     case ActionTypes.ADD_ONE_COFFEE: {
       const findCoffeeInCart = state.cart.find((coffee) => {
-        return coffee.id === action.payload.coffeeId;
+        return coffee.id === action.payload.coffeeId ;
       });
 
       if (findCoffeeInCart) {
         return produce(state, (draft) => {
-          draft.cart.push({
-            ...findCoffeeInCart,
-            quantity: findCoffeeInCart.quantity + 1,
-          });
-        });
-      }
+          const coffeeIndex = state.cart.findIndex(
+            (index) => findCoffeeInCart.id === index.id);
 
+          draft.cart[coffeeIndex].quantity = findCoffeeInCart.quantity + 1 
+        });
+
+      }
 
       const findCurrentCoffee = api.find((coffee) => {
         return coffee.id === action.payload.coffeeId;
       });
-
-      console.log(findCurrentCoffee);
-
 
       if (findCurrentCoffee) {
         return produce(state, (draft) => {
@@ -55,14 +53,42 @@ export function cartReducer(state: CoffeeState, action: any) {
         return coffee.id === action.payload.coffeeId;
       });
 
-      if (findCoffeeAlreadyExists && findCoffeeAlreadyExists.quantity < 0) {
+      const coffeeIndex = state.cart.findIndex(
+        (index) => findCoffeeAlreadyExists?.id === index.id
+      );
+
+
+      if (findCoffeeAlreadyExists && findCoffeeAlreadyExists.quantity > 1) {
         return produce(state, (draft) => {
-          draft.cart.push({
-            ...findCoffeeAlreadyExists,
-            quantity: findCoffeeAlreadyExists.quantity - 1,
-          });
+          draft.cart[coffeeIndex].quantity =
+            findCoffeeAlreadyExists.quantity - 1;
         });
       }
+
+      if (findCoffeeAlreadyExists && findCoffeeAlreadyExists.quantity === 1) {
+        return produce(state, (draft) => {
+          const newCoffeeList = state.cart.filter((coffee) => coffee.id !== findCoffeeAlreadyExists.id);
+          draft.cart = newCoffeeList
+        });
+      }
+
+      return state;
+    }
+
+    case ActionTypes.REMOVE_COFFEE: {
+      const findCoffeeAlreadyExists = state.cart.find((coffee) => {
+        return coffee.id === action.payload.coffeeId;
+      });
+
+      if (findCoffeeAlreadyExists) {
+        return produce(state, (draft) => {
+          const removeCoffee = state.cart.filter(
+            (coffee) => coffee.id !== findCoffeeAlreadyExists.id
+          );
+          
+          draft.cart = removeCoffee;
+        });
+      } 
 
       return state;
     }

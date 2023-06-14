@@ -12,6 +12,7 @@ export const ActionsContent = styled.div`
   gap: 1rem;
 
   a {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;

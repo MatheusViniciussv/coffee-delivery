@@ -5,10 +5,10 @@ import { useContext } from "react"
 import { CartContext } from "../../context/CartContext"
 
 interface CounterProps {
-  coffeeId: string
+  id: string
 }
 
-export function Counter({ coffeeId }: CounterProps) {
+export function Counter({ id }: CounterProps) {
 
   const theme = useTheme()
 
@@ -16,11 +16,11 @@ export function Counter({ coffeeId }: CounterProps) {
 
   return (
     <Content>
-      <CounterButton onClick={() => lessCoffeeToCart(coffeeId)} radiusDiraction="left">
+      <CounterButton onClick={() => lessCoffeeToCart(id)} radiusDiraction="left">
         <Minus color={theme?.purple} />
       </CounterButton>
-      {1}
-      <CounterButton onClick={() => addCoffeeToCart(coffeeId)} radiusDiraction="right">
+      {(cart?.find((coffee) => { return coffee?.id === id })?.quantity) ?? 0}
+      <CounterButton onClick={() => addCoffeeToCart(id)} radiusDiraction="right">
         <Plus color={theme?.purple} />
       </CounterButton>
     </Content>

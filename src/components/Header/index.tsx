@@ -6,10 +6,14 @@ import { ActionsContent, Container, Location } from "./styles";
 import { Link } from 'react-router-dom';
 import { useTheme } from 'styled-components';
 import Geocode from 'react-geocode'
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { Badge } from '../Badge';
+import { CartContext } from '../../context/CartContext';
 
 export function HeaderComponent() {
   const theme = useTheme()
+
+  const { cart } = useContext(CartContext)
 
   const [city, setCity] = useState();
   const [state, setState] = useState();
@@ -49,6 +53,11 @@ export function HeaderComponent() {
 
         <Link to='/checkout'>
           <ShoppingCart size={24} weight='fill' />
+          {cart.length > 0 && (
+            <Badge count={(cart.reduce((acc, curr) => {
+              return { ...acc, quantity: acc.quantity + curr.quantity }
+            }))['quantity']} />
+          )}
         </Link>
       </ActionsContent>
     </Container>

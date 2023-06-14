@@ -10,14 +10,11 @@ import { CartContext } from "../../../context/CartContext";
 export function Cart() {
   const theme = useTheme()
 
-  const { cart } = useContext(CartContext)
+  const { cart, removeCoffeeToCart } = useContext(CartContext)
 
   return (
     <Container>
       {cart.map((coffee) => {
-
-        console.log(coffee)
-
         return (
           <Content key={coffee.id}>
             <Coffee>
@@ -27,9 +24,9 @@ export function Cart() {
                 <span>{coffee.name}</span>
 
                 <Actions>
-                  <Counter coffeeId={coffee.id} />
+                  <Counter id={coffee.id} />
 
-                  <Remove>
+                  <Remove onClick={() => removeCoffeeToCart(coffee.id)}>
                     <Trash color={theme?.purple} size={18} />
                     <span>REMOVER</span>
                   </Remove>
