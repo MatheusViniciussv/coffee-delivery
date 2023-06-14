@@ -49,7 +49,11 @@ export function Cart() {
         </div>
 
         <div>
-          <span>R$ 29,70</span>
+          <span>{cart.length >= 1 && (cart.reduce((acc, curr) => {
+            const value = (curr.quantity * curr.value)
+              
+            return { ...acc, value }
+          }))['value']}</span>
           <span>R$ 3,50</span>
           <strong>R$ 33,20</strong>
         </div>
