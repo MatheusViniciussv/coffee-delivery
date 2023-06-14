@@ -1,11 +1,3 @@
-interface Coffee {
-  image: string;
-  name: string;
-  value: number;
-  quantity: number;
-  id: string;
-}
-
 export enum ActionTypes {
   ADD_ONE_COFFEE = "ADD_NEW_COFFEE",
   REMOVE_COFFEE = "REMOVE_COFFEE",
