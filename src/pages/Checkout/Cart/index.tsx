@@ -15,6 +15,7 @@ export function Cart() {
   return (
     <Container>
       {cart.map((coffee) => {
+        console.log(cart)
         return (
           <Content key={coffee.id}>
             <Coffee>
@@ -35,7 +36,7 @@ export function Cart() {
             </Coffee>
 
             <Price>
-              <strong>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRA' }).format(coffee.value * coffee.quantity)}</strong>
+              <strong>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(coffee.value * coffee.quantity)}</strong>
             </Price>
           </Content>
         )
@@ -49,11 +50,9 @@ export function Cart() {
         </div>
 
         <div>
-          <span>{cart.length >= 1 && (cart.reduce((acc, curr) => {
-            const value = (curr.quantity * curr.value)
-              
-            return { ...acc, value }
-          }))['value']}</span>
+          <span>{cart.length > 0 && Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format((cart.reduce((acc, curr) => {
+            return { ...acc, value: acc.value + (curr.value * curr.quantity) }
+          })['value']))}</span>
           <span>R$ 3,50</span>
           <strong>R$ 33,20</strong>
         </div>
