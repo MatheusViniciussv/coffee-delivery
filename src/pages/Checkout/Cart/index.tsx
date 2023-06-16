@@ -4,15 +4,29 @@ import { useTheme } from "styled-components";
 import { Trash } from "@phosphor-icons/react";
 import { Counter } from "../../../components/Counter";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../../../context/CartContext";
 import { stringFormatter } from "../../../utils/stringFormatter";
-import { Coffee as ICoffee } from "../../../reducers/cart/reducer";
+import { Coffee as CoffeeType } from "../../../reducers/cart/reducer";
 
 export function Cart() {
   const theme = useTheme()
 
   const { cart, removeCoffeeToCart } = useContext(CartContext)
+
+  const [delivery, setDelivery] = useState(0)
+
+  useEffect(() => {
+    setDelivery(Math.floor(Math.random() * (1300 - 499) + 499))
+  }, [])
+
+  function totalOfItems(items: CoffeeType[]): number {
+    return items.reduce((acc, curr) => acc + (curr.value * curr.quantity), 0)
+  }
+
+  function totalOfCart(value: number, delivery: number): number {
+    return value + delivery
+  }
 
   return (
     <Container>
@@ -52,10 +66,10 @@ export function Cart() {
 
         <div>
           <span>
-            {cart.length > 0 && stringFormatter.currency(cart.reduce((acc, curr) => acc + (curr.value * curr.quantity), 0))}
+            {cart.length > 0 ? stringFormatter.currency(totalOfItems(cart)) : stringFormatter.currency(0)}
           </span>
-          <span>R$ 3,50</span>
-          <strong>R$ 33,20</strong>
+          <span>{cart.length > 0 ? stringFormatter.currency(delivery) : stringFormatter.currency(0)}</span>
+          <strong>{cart.length > 0 ? stringFormatter.currency(totalOfCart(totalOfItems(cart), delivery)) : stringFormatter.currency(0)}</strong>
         </div>
       </CartValue>
 
