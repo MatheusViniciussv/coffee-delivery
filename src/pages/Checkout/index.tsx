@@ -1,103 +1,95 @@
-import { MapPinLine, CurrencyDollar, CreditCard, Bank, Money } from '@phosphor-icons/react'
+import { MapPinLine } from '@phosphor-icons/react'
 import {
   CompletedOrder,
   Content,
   CartCoffee,
-  Location, Payment,
+  Location,
   LocationHeader,
-  PaymentHeader,
-  Conditions,
-  PaymentButton,
+  Purchase,
+  CartContent
 } from "./styles";
 import { useTheme } from 'styled-components';
-import { useState } from 'react';
 import { Cart } from './Cart';
+import { CartAddressForm } from './CartAddressForm';
+import { zodResolver } from '@hookform/resolvers/zod'
 
-import { MaskedInput, createDefaultMaskGenerator } from 'react-hook-mask';
+import { Link } from "react-router-dom";
+
+import { FormProvider, useForm } from 'react-hook-form'
+import zod from 'zod'
+import { CartPaymentMethodForm } from './CartPaymentMethodForm';
+
+const cartCoffeeFormValidationSchema = zod.object({
+  address: zod.object({
+    zipcode: zod.string().max(10),
+    road: zod.string(),
+    number: zod.string(),
+    complement: zod.string().optional(),
+    city: zod.string(),
+    neighborhood: zod.string(),
+    state: zod.string().max(2)
+  }),
+  payment: zod.string()
+})
+
+type cartCoffeeFormData = zod.infer<typeof cartCoffeeFormValidationSchema>
 
 export function Checkout() {
 
   const theme = useTheme()
 
-  const [selected, setSelected] = useState('')
-  const maskGenerator = createDefaultMaskGenerator('99999-999');
+  const CartCoffeeForm = useForm<cartCoffeeFormData>({
+    resolver: zodResolver(cartCoffeeFormValidationSchema)
+  })
 
-  const [value, setValue] = useState('');
+  const { handleSubmit } = CartCoffeeForm
+
+  function handleOrder(data: cartCoffeeFormData) {
+    console.log(data)
+  }
+
+  const error = (errors: any, e: any) => console.log(errors, e)
 
   return (
     <Content>
-      <CompletedOrder>
-        <h3>Complete seu pedido</h3>
-        <Location>
-          <LocationHeader>
-            <MapPinLine size={22} color={theme?.yellow} />
-            <div>
-              <h4>Endereço de Entrega</h4>
-              <span>Informe o endereço onde deseja receber seu pedido</span>
-            </div>
-          </LocationHeader>
+      <form onSubmit={handleSubmit(handleOrder, error)}>
+        <CompletedOrder>
+          <h3>Complete seu pedido</h3>
+          <Location>
+            <LocationHeader>
+              <MapPinLine size={22} color={theme?.yellow} />
+              <div>
+                <h4>Endereço de Entrega</h4>
+                <span>Informe o endereço onde deseja receber seu pedido</span>
+              </div>
+            </LocationHeader>
 
-          <form>
-            <div className='header'>
-              <MaskedInput
-                name="zipcode"
-                placeholder='CEP'
-                maskGenerator={maskGenerator}
-                value={value}
-                onChange={setValue}
-              />
-            </div>
-            <div className='address-top'>
-              <input name="adress" placeholder='Rua' />
-            </div>
-            <div className='address-mid'>
-              <input name="number" placeholder='Número' />
-              <input name="complement" placeholder='Complemento' />
-            </div>
-            <div className='address-bottom'>
-              <input name="neighborhood" placeholder='Bairro' />
-              <input name="city" placeholder='Cidade' />
-              <input name="state" placeholder='UF' />
-            </div>
+            <FormProvider {...CartCoffeeForm}>
+              <CartAddressForm />
+            </FormProvider>
 
-          </form>
+          </Location>
 
-        </Location>
 
-        <Payment>
-          <PaymentHeader>
-            <CurrencyDollar size={22} color={theme?.purple} />
-            <div>
-              <h4>Pagamento</h4>
-              <span>O pagamento é feito na entrega. Escolha a forma que deseja pagar</span>
-            </div>
-          </PaymentHeader>
+          <FormProvider {...CartCoffeeForm}>
+            <CartPaymentMethodForm />
+          </FormProvider>
 
-          <Conditions>
-            <PaymentButton onClick={() => selected !== 'credit' ? setSelected('credit') : setSelected('')} type='button' isSelected={selected === 'credit' ? true : false}>
-              <CreditCard size={22} color={theme?.purple} />
-              <span>CARTÃO DE DÉBITO</span>
-            </PaymentButton>
 
-            <PaymentButton onClick={() => selected !== 'debit' ? setSelected('debit') : setSelected('')} type='button' isSelected={selected === 'debit' ? true : false}>
-              <Bank size={22} color={theme?.purple} />
-              <span>CARTÃO DE DÉBITO</span>
-            </PaymentButton>
+        </CompletedOrder>
 
-            <PaymentButton onClick={() => selected !== 'money' ? setSelected('money') : setSelected('')} type='button' isSelected={selected === 'money' ? true : false}>
-              <Money size={22} color={theme?.purple} />
-              <span>DINHEIRO</span>
-            </PaymentButton>
-          </Conditions>
+        <CartCoffee>
+          <h3>cafés selecionados</h3>
 
-        </Payment>
-      </CompletedOrder>
+          <CartContent>
 
-      <CartCoffee>
-        <h3>cafés selecionados</h3>
-
-        <Cart />
-      </CartCoffee>
+            <Cart />
+            {/* <Link to='/success'> */}
+            <Purchase type="submit">CONFIRMAR PEDIDO</Purchase>
+            {/* </Link> */}
+          </CartContent>
+        </CartCoffee>
+      </form>
     </Content >
   )
 }

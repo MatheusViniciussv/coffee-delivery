@@ -1,9 +1,8 @@
-import { Actions, CartValue, Coffee, Container, Content, Price, Purchase, Remove } from "./styles";
+import { Actions, CartValue, Coffee, Content, Price, Remove } from "./styles";
 
 import { useTheme } from "styled-components";
 import { Trash } from "@phosphor-icons/react";
 import { Counter } from "../../../components/Counter";
-import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../../../context/CartContext";
 import { stringFormatter } from "../../../utils/stringFormatter";
@@ -17,19 +16,23 @@ export function Cart() {
   const [delivery, setDelivery] = useState(0)
 
   useEffect(() => {
+    if (!cart.length) {
+      return
+    }
     setDelivery(Math.floor(Math.random() * (1300 - 499) + 499))
   }, [])
 
   function totalOfItems(items: CoffeeType[]): number {
-    return items.reduce((acc, curr) => acc + (curr.value * curr.quantity), 0)
+
+    return cart.length > 0 ? items.reduce((acc, curr) => acc + (curr.value * curr.quantity), 0) : 0
   }
 
   function totalOfCart(value: number, delivery: number): number {
-    return value + delivery
+    return cart.length > 0 ? value + delivery : 0
   }
 
   return (
-    <Container>
+    <>
       {cart.map((coffee) => {
         return (
           <Content key={coffee.id}>
@@ -66,16 +69,12 @@ export function Cart() {
 
         <div>
           <span>
-            {cart.length > 0 ? stringFormatter.currency(totalOfItems(cart)) : stringFormatter.currency(0)}
+            {stringFormatter.currency(totalOfItems(cart))}
           </span>
-          <span>{cart.length > 0 ? stringFormatter.currency(delivery) : stringFormatter.currency(0)}</span>
-          <strong>{cart.length > 0 ? stringFormatter.currency(totalOfCart(totalOfItems(cart), delivery)) : stringFormatter.currency(0)}</strong>
+          <span>{stringFormatter.currency(delivery)}</span>
+          <strong>{stringFormatter.currency(totalOfCart(totalOfItems(cart), delivery))}</strong>
         </div>
       </CartValue>
-
-      <Link to='/success'>
-        <Purchase type='submit'>CONFIRMAR PEDIDO</Purchase>
-      </Link>
-    </Container>
+    </>
   )
 }

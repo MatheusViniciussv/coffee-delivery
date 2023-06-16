@@ -125,24 +125,3 @@ export const CartValue = styled.div`
     }
   }
 `;
-
-export const Purchase = styled.button`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-
-  padding: 1rem 0;
-
-  border: 0;
-  border-radius: 6px;
-
-  font-size: 14px;
-  font-weight: bold;
-  background: ${(props) => props.theme["yellow"]};
-  color: ${(props) => props.theme["white"]};
-  transition: 100ms;
-
-  &:hover {
-    background: ${(props) => props.theme["yellow-dark"]};
-  }
-`;
