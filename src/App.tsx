@@ -10,11 +10,11 @@ function App() {
   Geocode.setApiKey(import.meta.env.VITE_GOOGLE_API_KEY);
 
   // set response language. Defaults to english.
-  Geocode.setLanguage("en");
+  Geocode.setLanguage("br");
 
   // set response region. Its optional.
   // A Geocoding request with region=es (Spain) will return the Spanish city.
-  Geocode.setRegion("es");
+  Geocode.setRegion("br");
 
   return (
     <ThemeProvider theme={defaultTheme}>

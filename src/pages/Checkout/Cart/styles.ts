@@ -87,10 +87,7 @@ export const Price = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: end;
-
-  strong {
-    color: ${(props) => props.theme['base-text']}
-  }
+  color: ${(props) => props.theme['base-text']}
 `;
 
 export const CartValue = styled.div`

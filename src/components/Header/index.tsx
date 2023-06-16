@@ -56,7 +56,7 @@ export function HeaderComponent() {
           {cart.length > 0 && (
             <Badge count={(cart.reduce((acc, curr) => {
               return { ...acc, quantity: acc.quantity + curr.quantity }
-            }))['quantity']} />
+            })).quantity} />
           )}
         </Link>
       </ActionsContent>

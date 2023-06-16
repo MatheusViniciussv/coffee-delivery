@@ -3,6 +3,7 @@ import { Actions, CardBuy, CardTitle, CardType, CardTypeContainer, ContentCard, 
 import { useTheme } from "styled-components";
 import { Counter } from "../../../components/Counter";
 import { Link } from "react-router-dom";
+import { stringFormatter } from "../../../utils/stringFormatter";
 
 interface Catalog {
   data: {
@@ -44,7 +45,7 @@ export function Card({ data }: Catalog) {
       <CardBuy>
         <Price>
           <span>R$</span>
-          <strong>{Intl.NumberFormat('pt-BR', { minimumFractionDigits: 2 }).format(data.value)}</strong>
+          <strong>{stringFormatter.currency(data.value, true)}</strong>
         </Price>
 
         <Actions>
@@ -57,7 +58,6 @@ export function Card({ data }: Catalog) {
           </Link>
         </Actions>
       </CardBuy>
-
     </ContentCard>
   )
 }
