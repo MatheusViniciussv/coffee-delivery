@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@hookform/error-message": "^2.0.1",
     "@hookform/resolvers": "^3.1.1",
     "@phosphor-icons/react": "^2.0.9",
     "@types/react-geocode": "^0.2.1",

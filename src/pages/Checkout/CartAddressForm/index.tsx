@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { MaskedInput, createDefaultMaskGenerator } from 'react-hook-mask';
 import { FormContainer } from './styles';
 import { useFormContext } from 'react-hook-form'
+import { ErrorMessage } from '@hookform/error-message'
 
 export function CartAddressForm() {
 
@@ -9,7 +10,7 @@ export function CartAddressForm() {
 
   const [value, setValue] = useState('');
 
-  const { register } = useFormContext()
+  const { register, formState: { errors } } = useFormContext()
 
   return (
     <FormContainer>
@@ -21,9 +22,15 @@ export function CartAddressForm() {
           value={value}
           onChange={setValue}
         />
+        {/* <p>{console.log(errors?.root?.message)}</p> */}
       </div>
       <div className='address-top'>
         <input placeholder='Rua' {...register('address.road')} />
+        <ErrorMessage
+          errors={errors}
+          name='address.road'
+          render={({ message }) => <p>{message}</p>}
+        />
       </div>
       <div className='address-mid'>
         <input placeholder='Número' {...register('address.number')} />

@@ -13,7 +13,7 @@ import { Cart } from './Cart';
 import { CartAddressForm } from './CartAddressForm';
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 import { FormProvider, useForm } from 'react-hook-form'
 import zod from 'zod'
@@ -30,7 +30,7 @@ const cartCoffeeFormValidationSchema = zod.object({
     state: zod.string().max(2)
   }),
   payment: zod.string()
-})
+}).required()
 
 type cartCoffeeFormData = zod.infer<typeof cartCoffeeFormValidationSchema>
 
@@ -39,20 +39,21 @@ export function Checkout() {
   const theme = useTheme()
 
   const CartCoffeeForm = useForm<cartCoffeeFormData>({
-    resolver: zodResolver(cartCoffeeFormValidationSchema)
+    resolver: zodResolver(cartCoffeeFormValidationSchema),
+    shouldFocusError: true,
+    reValidateMode: 'onChange'
   })
 
-  const { handleSubmit } = CartCoffeeForm
+  const { handleSubmit, formState: { errors } } = CartCoffeeForm
 
   function handleOrder(data: cartCoffeeFormData) {
     console.log(data)
+    console.log(errors.address?.road)
   }
-
-  const error = (errors: any, e: any) => console.log(errors, e)
 
   return (
     <Content>
-      <form onSubmit={handleSubmit(handleOrder, error)}>
+      <form onSubmit={handleSubmit(handleOrder)}>
         <CompletedOrder>
           <h3>Complete seu pedido</h3>
           <Location>

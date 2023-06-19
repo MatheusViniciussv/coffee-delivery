@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@hookform/error-message': ^2.0.1
   '@hookform/resolvers': ^3.1.1
   '@phosphor-icons/react': ^2.0.9
   '@types/react': ^18.0.28
@@ -25,6 +26,7 @@ specifiers:
   zod: ^3.21.4
 
 dependencies:
+  '@hookform/error-message': 2.0.1_sizx3lqewyln4g3x6xumeavy6a
   '@hookform/resolvers': 3.1.1_react-hook-form@7.44.3
   '@phosphor-icons/react': 2.0.9_biqbaboplfbrettd7655fr4n2y
   '@types/react-geocode': 0.2.1
@@ -1586,6 +1588,18 @@ packages:
     resolution: {integrity: sha512-LxcyMGxwmTh2lY9FwHPGWOHmYFCZvbrFCBZL4FzSSsxsRPuhrYUg/49/0KDfW8tnIEaEHtfmn6+NPN+1DqaNmA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
+
+  /@hookform/error-message/2.0.1_sizx3lqewyln4g3x6xumeavy6a:
+    resolution: {integrity: sha512-U410sAr92xgxT1idlu9WWOVjndxLdgPUHEB8Schr27C9eh7/xUnITWpCMF93s+lGiG++D4JnbSnrb5A21AdSNg==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+      react-hook-form: ^7.0.0
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      react-hook-form: 7.44.3_react@18.2.0
+    dev: false
 
   /@hookform/resolvers/3.1.1_react-hook-form@7.44.3:
     resolution: {integrity: sha512-tS16bAUkqjITNSvbJuO1x7MXbn7Oe8ZziDTJdA9mMvsoYthnOOiznOTGBYwbdlYBgU+tgpI/BtTU3paRbCuSlg==}

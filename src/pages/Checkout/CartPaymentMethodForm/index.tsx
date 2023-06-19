@@ -10,7 +10,7 @@ export function CartPaymentMethodForm() {
 
   const theme = useTheme()
 
-  const { register, setValue } = useFormContext()
+  const { register, setValue, formState: { errors } } = useFormContext()
 
   return (
     <Payment>
@@ -23,6 +23,7 @@ export function CartPaymentMethodForm() {
       </PaymentHeader>
 
       <Conditions>
+        {/* <p>{errors?.payment?.message}</p> */}
         <PaymentButton
           {...register('payment')}
           value="credit"
@@ -30,27 +31,29 @@ export function CartPaymentMethodForm() {
             selected !== 'credit' ? setSelected('credit') : setSelected('')
             setValue('payment', 'credit')
           }}
-          type='button' isSelected={selected === 'credit' ? true : false}>
+          type='button' isSelected={selected === 'credit' ? true : false}
+        >
           <CreditCard size={22} color={theme?.purple} />
           <span>CARTÃO DE CRÉDITO</span>
         </PaymentButton>
 
         <PaymentButton
-          value="debit"
           {...register('payment')}
+          value="debit"
           onClick={() => {
             selected !== 'debit' ? setSelected('debit') : setSelected('')
             setValue('payment', 'debit')
           }} type='button'
           isSelected={selected === 'debit' ? true : false}
+
         >
           <Bank size={22} color={theme?.purple} />
           <span>CARTÃO DE DÉBITO</span>
         </PaymentButton>
 
         <PaymentButton
-          value="money"
           {...register('payment')}
+          value="money"
           onClick={() => {
             selected !== 'money' ? setSelected('money') : setSelected('')
             setValue('payment', 'money')
