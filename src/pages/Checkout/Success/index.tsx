@@ -3,10 +3,18 @@ import { Container, Content, Detail, Header, Icon, Info, RequestDetails, Image }
 import Illustration from '../../../assets/Illustration.svg'
 import { CurrencyDollar, MapPin, Timer } from "@phosphor-icons/react";
 import { useTheme } from "styled-components";
+import { useContext, useEffect } from "react";
+import { CartContext } from "../../../context/CartContext";
 
 export function Success() {
 
   const theme = useTheme()
+
+  const { checkout } = useContext(CartContext)
+
+  useEffect(() => {
+    console.log(checkout)
+  }, [checkout])
 
   return (
     <Container>
@@ -25,9 +33,9 @@ export function Success() {
             <Info>
               <div>
                 <span>Entrega em </span>
-                <strong>Rua João Daniel Martinelli, 102</strong>
+                <strong>{`${checkout?.address?.road}, ${checkout?.address?.number}`}</strong>
               </div>
-              <span>Farrapos - Porto Alegre, RS</span>
+              <span>{`${checkout?.address?.neighborhood} - ${checkout?.address?.city}, ${checkout?.address?.state}`}</span>
             </Info>
           </Detail>
 
@@ -49,7 +57,7 @@ export function Success() {
 
             <Info>
               <span>Pagamento na entrega</span>
-              <strong>Cartão de Crédito</strong>
+              <strong>{`${checkout?.paymentMethod}`}</strong>
             </Info>
           </Detail>
         </RequestDetails>

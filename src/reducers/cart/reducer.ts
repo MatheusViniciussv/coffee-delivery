@@ -12,10 +12,26 @@ export interface Coffee {
   id: string;
 }
 
-interface CoffeeState {
-  cart: Coffee[]
-  catalog: Catalog[]
+interface Checkout {
+  coffeeId: string | string[];
+  paymentMethod: string;
+  address: {
+    number: string;
+    zipcode: string;
+    road: string;
+    city: string;
+    neighborhood: string;
+    state: string;
+    complement?: string | undefined;
+  };
 }
+
+interface CoffeeState {
+  cart: Coffee[];
+  catalog: Catalog[];
+  checkout?: Checkout;
+}
+
 
 export function cartReducer(state: CoffeeState, action: any) {
   switch (action.type) {
@@ -91,6 +107,19 @@ export function cartReducer(state: CoffeeState, action: any) {
       } 
 
       return state;
+    }
+
+    case ActionTypes.CLEAR_COFFEE_CART: {
+      return produce(state, (draft) => {
+        draft.cart = []
+      }); 
+    }
+
+     case ActionTypes.CREATE_COFFEE_REQUEST: {
+
+      return produce(state, (draft) => {
+         draft.checkout = action.payload.checkout;
+      })
     }
     
     default:

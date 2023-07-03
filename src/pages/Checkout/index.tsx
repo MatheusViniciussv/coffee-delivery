@@ -18,37 +18,50 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { FormProvider, useForm } from 'react-hook-form'
 import zod from 'zod'
 import { CartPaymentMethodForm } from './CartPaymentMethodForm';
+import { useContext } from 'react';
+import { CartContext } from '../../context/CartContext';
+import { useNavigate } from 'react-router-dom';
 
 const cartCoffeeFormValidationSchema = zod.object({
   address: zod.object({
-    zipcode: zod.string().max(10),
-    road: zod.string(),
-    number: zod.string(),
+    zipcode: zod.string().nonempty({ message: 'this field is required' }),
+    road: zod.string().min(3).nonempty({ message: 'this field is required' }),
+    number: zod.string().nonempty({ message: 'this field is required' }),
     complement: zod.string().optional(),
-    city: zod.string(),
-    neighborhood: zod.string(),
-    state: zod.string().max(2)
+    city: zod.string().nonempty({ message: 'this field is required' }),
+    neighborhood: zod.string().nonempty({ message: 'this field is required' }),
+    state: zod.string().max(2).nonempty({ message: 'this field is required' })
   }),
-  payment: zod.string()
-}).required()
+  payment: zod.string().nonempty({ message: 'this field is required' })
+})
 
 type cartCoffeeFormData = zod.infer<typeof cartCoffeeFormValidationSchema>
 
 export function Checkout() {
 
   const theme = useTheme()
+  const { createCheckoutCoffee, cart, clearCoffeeToCart } = useContext(CartContext)
+
+  const navigator = useNavigate()
 
   const CartCoffeeForm = useForm<cartCoffeeFormData>({
-    resolver: zodResolver(cartCoffeeFormValidationSchema),
-    shouldFocusError: true,
-    reValidateMode: 'onChange'
+    resolver: zodResolver(cartCoffeeFormValidationSchema)
   })
 
-  const { handleSubmit, formState: { errors } } = CartCoffeeForm
+  const { handleSubmit } = CartCoffeeForm
 
   function handleOrder(data: cartCoffeeFormData) {
-    console.log(data)
-    console.log(errors.address?.road)
+    localStorage.removeItem("@ignite-coffee-delivery");
+
+    createCheckoutCoffee({
+      address: data.address,
+      paymentMethod: data.payment,
+      coffeeId: [...cart.map((coffee) => coffee.id)]
+    })
+
+    clearCoffeeToCart()
+
+    navigator('/success')
   }
 
   return (
@@ -85,9 +98,7 @@ export function Checkout() {
           <CartContent>
 
             <Cart />
-            {/* <Link to='/success'> */}
-            <Purchase type="submit">CONFIRMAR PEDIDO</Purchase>
-            {/* </Link> */}
+            <Purchase onClick={() => localStorage.removeItem('@ignite-coffee-delivery')} type="submit">CONFIRMAR PEDIDO</Purchase>
           </CartContent>
         </CartCoffee>
       </form>

@@ -11,6 +11,11 @@ export const FormContainer = styled.div`
     "adm adm adm adm"
     "adb adb adb adb";
 
+  p {
+    color: ${props => props.theme['yellow-dark']};
+    font-size: 0.5;
+  }
+
   input {
     padding: 1rem;
 

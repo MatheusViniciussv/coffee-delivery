@@ -26,12 +26,12 @@ export function CartPaymentMethodForm() {
         {/* <p>{errors?.payment?.message}</p> */}
         <PaymentButton
           {...register('payment')}
-          value="credit"
+          value="Cartão de Crédito"
           onClick={() => {
-            selected !== 'credit' ? setSelected('credit') : setSelected('')
-            setValue('payment', 'credit')
+            selected !== 'CRÉDITO' ? setSelected('CRÉDITO') : setSelected('')
+            setValue('payment', 'Cartão de Crédito')
           }}
-          type='button' isSelected={selected === 'credit' ? true : false}
+          type='button' isSelected={selected === 'CRÉDITO' ? true : false}
         >
           <CreditCard size={22} color={theme?.purple} />
           <span>CARTÃO DE CRÉDITO</span>
@@ -39,12 +39,12 @@ export function CartPaymentMethodForm() {
 
         <PaymentButton
           {...register('payment')}
-          value="debit"
+          value="Cartão de Débito"
           onClick={() => {
-            selected !== 'debit' ? setSelected('debit') : setSelected('')
-            setValue('payment', 'debit')
+            selected !== 'DÉBITO' ? setSelected('DÉBITO') : setSelected('')
+            setValue('payment', 'Cartão de Débito')
           }} type='button'
-          isSelected={selected === 'debit' ? true : false}
+          isSelected={selected === 'DÉBITO' ? true : false}
 
         >
           <Bank size={22} color={theme?.purple} />
@@ -53,12 +53,12 @@ export function CartPaymentMethodForm() {
 
         <PaymentButton
           {...register('payment')}
-          value="money"
+          value="Dinheiro"
           onClick={() => {
-            selected !== 'money' ? setSelected('money') : setSelected('')
-            setValue('payment', 'money')
+            selected !== 'DINEHIRO' ? setSelected('DINEHIRO') : setSelected('')
+            setValue('payment', 'Dinheiro')
           }}
-          type='button' isSelected={selected === 'money' ? true : false}
+          type='button' isSelected={selected === 'DINEHIRO' ? true : false}
         >
           <Money size={22} color={theme?.purple} />
           <span>DINHEIRO</span>

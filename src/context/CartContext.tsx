@@ -1,6 +1,6 @@
 import { ReactNode, createContext, useEffect, useReducer, useState } from "react"
 import { Coffee, cartReducer } from "../reducers/cart/reducer"
-import { addOneCoffeeAction, lessOneCoffeeAction, removeOneCoffeeAction } from "../reducers/cart/actions"
+import { addOneCoffeeAction, lessOneCoffeeAction, removeOneCoffeeAction, CreateCoffeeRequest, clearCoffeeAction } from "../reducers/cart/actions"
 import { api } from "../api"
 
 export interface Catalog {
@@ -12,13 +12,29 @@ export interface Catalog {
   id: string
   quantity: number
 }
+interface Checkout {
+  coffeeId: string | string[];
+  paymentMethod: string;
+  address: {
+    number: string;
+    zipcode: string;
+    road: string;
+    city: string;
+    neighborhood: string;
+    state: string;
+    complement?: string | undefined;
+  };
+}
 
 interface CartContextTypes {
   catalog: Catalog[]
   cart: Coffee[]
+  checkout?: Checkout
   addCoffeeToCart: (id: string) => void
   lessCoffeeToCart: (id: string) => void
   removeCoffeeToCart: (id: string) => void
+  clearCoffeeToCart: () => void
+  createCheckoutCoffee: (cart: Checkout) => void
 }
 
 export const CartContext = createContext({} as CartContextTypes)
@@ -28,14 +44,31 @@ interface CartContextProviderProps {
 }
 
 export function CartContextProvider({ children }: CartContextProviderProps) {
-  const [cartState, dispatch] = useReducer(cartReducer, { cart: [], catalog: [] })
+  const [cartState, dispatch] = useReducer(cartReducer,
+    { cart: [], catalog: [], checkout: {} as Checkout },
+    (initialState) => {
+      const storedState = localStorage.getItem('@ignite-coffee-delivery')
+
+      if (storedState) {
+        return JSON.parse(storedState)
+      }
+
+      return initialState
+    })
+
   const [catalog, setCatalog] = useState<Catalog[]>([])
 
   useEffect(() => {
     setCatalog(api)
   }, [])
 
-  const { cart } = cartState
+  useEffect(() => {
+    const stateFormated = JSON.stringify(cartState)
+
+    localStorage.setItem('@ignite-coffee-delivery', stateFormated)
+  }, [cartState])
+
+  const { cart, checkout } = cartState
 
   function addCoffeeToCart(id: string) {
     dispatch(addOneCoffeeAction(id))
@@ -49,9 +82,17 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     dispatch(removeOneCoffeeAction(id))
   }
 
+  function clearCoffeeToCart() {
+    dispatch(clearCoffeeAction())
+  }
+
+  function createCheckoutCoffee(cart: Checkout) {
+    dispatch(CreateCoffeeRequest(cart))
+  }
+
 
   return (
-    <CartContext.Provider value={{ cart, addCoffeeToCart, lessCoffeeToCart, removeCoffeeToCart, catalog }}>
+    <CartContext.Provider value={{ cart, checkout, addCoffeeToCart, lessCoffeeToCart, removeCoffeeToCart, catalog, createCheckoutCoffee, clearCoffeeToCart }}>
       {children}
     </CartContext.Provider>
   )

@@ -10,36 +10,81 @@ export function CartAddressForm() {
 
   const [value, setValue] = useState('');
 
-  const { register, formState: { errors } } = useFormContext()
+  const { register, formState, setError } = useFormContext()
 
   return (
     <FormContainer>
       <div className='header'>
+        <ErrorMessage
+          errors={formState.errors}
+          name='address.zipcode'
+          render={({ message }) => message && <p>{message}</p>}
+        />
         <MaskedInput
           {...register('address.zipcode')}
           placeholder='CEP'
           maskGenerator={maskGenerator}
           value={value}
           onChange={setValue}
+          onError={(err) => setError('address.zipcode', err)}
         />
-        {/* <p>{console.log(errors?.root?.message)}</p> */}
       </div>
       <div className='address-top'>
-        <input placeholder='Rua' {...register('address.road')} />
         <ErrorMessage
-          errors={errors}
+          errors={formState.errors}
           name='address.road'
-          render={({ message }) => <p>{message}</p>}
+          render={({ message }) => message && <p>{message}</p>}
         />
+        <input placeholder='Rua' {...register('address.road')} onError={(err) => setError('address.road', err)} />
       </div>
       <div className='address-mid'>
-        <input placeholder='Número' {...register('address.number')} />
-        <input placeholder='Complemento' {...register('address.complement')} />
+        <div>
+          <ErrorMessage
+            errors={formState.errors}
+            name='address.number'
+            render={({ message }) => message && <p>{message}</p>}
+          />
+          <input placeholder='Número' {...register('address.number')} />
+        </div>
+        <div>
+          <ErrorMessage
+            errors={formState.errors}
+            name='address.complement'
+            render={({ message }) => message && <p>{message}</p>}
+          />
+          <input placeholder='Complemento' {...register('address.complement')} />
+        </div>
+
+
       </div>
       <div className='address-bottom'>
-        <input placeholder='Bairro' {...register('address.neighborhood')} />
-        <input placeholder='Cidade' {...register('address.city')} />
-        <input placeholder='UF' {...register('address.state')} />
+        <div>
+          <ErrorMessage
+            errors={formState.errors}
+            name='address.neighborhood'
+            render={({ message }) => message && <p>{message}</p>}
+          />
+          <input placeholder='Bairro' {...register('address.neighborhood')} />
+        </div>
+
+        <div>
+          <ErrorMessage
+            errors={formState.errors}
+            name='address.city'
+            render={({ message }) => message && <p>{message}</p>}
+          />
+          <input placeholder='Cidade' {...register('address.city')} />
+        </div>
+
+        <div>
+          <ErrorMessage
+            errors={formState.errors}
+            name='address.state'
+            render={({ message }) => message && <p>{message}</p>}
+          />
+          <input placeholder='UF' {...register('address.state')} />
+        </div>
+
       </div>
     </FormContainer >
   )
