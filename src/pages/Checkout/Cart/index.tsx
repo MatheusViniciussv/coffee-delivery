@@ -20,7 +20,7 @@ export function Cart() {
       return
     }
     setDelivery(Math.floor(Math.random() * (1300 - 499) + 499))
-  }, [])
+  }, [cart])
 
   function totalOfItems(items: CoffeeType[]): number {
 

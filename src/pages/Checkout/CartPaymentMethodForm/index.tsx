@@ -10,7 +10,7 @@ export function CartPaymentMethodForm() {
 
   const theme = useTheme()
 
-  const { register, setValue, formState: { errors } } = useFormContext()
+  const { register, setValue } = useFormContext()
 
   return (
     <Payment>
