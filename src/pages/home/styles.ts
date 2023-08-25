@@ -9,17 +9,9 @@ export const HomeContainer = styled.div`
   padding: 8rem 0 0;
   gap: 2rem;
 
-  background: repeating-radial-gradient(
-      ${(props) => props.theme["yellow-light"]},
-      ${(props) => props.theme["purple-light"]},
-      ${(props) => props.theme["purple-light"]},
-      ${(props) => props.theme["background"]},
-      ${(props) => props.theme["background"]},
-      ${(props) => props.theme["background"]}
-    )
-    repeat;
-
-  background-color: blur(23rem);
+  @media(max-width: 720px) {
+      flex-direction: column;
+  }
 `;
 
 export const Content = styled.div`
@@ -46,6 +38,10 @@ export const ItemsContent = styled.div`
   grid-template-columns: 1fr 1fr;
   grid-gap: 1rem;
   margin-top: 5rem;
+
+  @media (max-width: 720px) {
+    grid-template-columns: 1fr
+  }
 `;
 
 const IMAGE_BACKGROUND_COLOR = {
